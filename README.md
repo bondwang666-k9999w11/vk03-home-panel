@@ -63,6 +63,7 @@
 - [新手入门完整流程](docs/QUICKSTART.md)
 
 - [安装、自启动、USB 和排错](docs/INSTALL.md)
+- [USB 驱动检查、接口识别与排错](docs/USB-DRIVERS.md)
 - [米家设备接入与实体匹配教程](docs/DEVICE-MAPPING.md)
 - [CPU 温度组件准备与安装](docs/CPU-SENSORS.md)
 - [配置格式和安全范围](docs/CONFIGURATION.md)

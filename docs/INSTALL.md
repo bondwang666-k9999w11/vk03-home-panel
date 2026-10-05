@@ -17,6 +17,8 @@ v1.0.1 使用文件夹版 EXE。必须将 `_internal` 文件夹与 EXE 放在同
 
 ## VK03 USB 驱动
 
+详细步骤见 [USB 驱动检查与排错](USB-DRIVERS.md)。该文档提供现有驱动检查，不代表已完成全新系统的驱动安装验证。
+
 需要能让 PyUSB/libusb0 访问显示 Bulk interface 3 的驱动，并保留显示 HID interface 0 和触摸 HID。当前屏幕进程使用 Windows System32 下已有的 `libusb0.dll`。Python、DLL、驱动应为匹配的 x64 架构。
 
 项目不分发驱动，不自动重绑 USB 接口。请使用厂商或自己已经验证的驱动方案；不要把整个 USB 复合设备或 HID 接口替换成 Bulk 驱动，也不要套用不明网上驱动。
