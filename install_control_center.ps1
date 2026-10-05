@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 try {
     $installDir = 'C:\VK03'
     $exePath = Join-Path $installDir 'VK03控制中心.exe'

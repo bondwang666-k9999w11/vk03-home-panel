@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 function Get-VK03Processes {
     @(Get-CimInstance Win32_Process | Where-Object {
         $_.Name -in @('python.exe', 'pythonw.exe') -and
