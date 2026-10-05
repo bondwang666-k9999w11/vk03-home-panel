@@ -4,7 +4,7 @@
 
 ## 1. 下载正确的安装包
 
-打开 [正式版下载页面](https://github.com/bondwang666-k9999w11/vk03-home-panel/releases/latest)，展开 Assets，下载 `VK03-v1.0.0-core.zip`。
+打开 [正式版下载页面](https://github.com/bondwang666-k9999w11/vk03-home-panel/releases/latest)，展开 Assets，下载 `VK03-v1.0.1-core.zip`。
 
 `Source code (zip)` 是源码归档，不含控制中心 EXE。首次使用建议下载 core 包。
 

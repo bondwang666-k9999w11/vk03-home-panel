@@ -2,7 +2,7 @@
 
 把 VK03 USB 触摸屏变成 Windows PC 监控屏和 Home Assistant 家居控制面板。
 
-**v1.0.0** · Windows · 960 × 360 · MIT（第三方组件各自遵守其许可证）
+**v1.0.1** · Windows · 960 × 360 · MIT（第三方组件各自遵守其许可证）
 
 [下载正式版](https://github.com/bondwang666-k9999w11/vk03-home-panel/releases/latest) · [安装教程](docs/QUICKSTART.md) · [设备匹配](docs/DEVICE-MAPPING.md) · [反馈问题](https://github.com/bondwang666-k9999w11/vk03-home-panel/issues)
 

@@ -17,7 +17,7 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, headers, newurl):
         return None
 
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 ROLES = ("light_1", "light_2", "light_3", "light_4", "climate", "purifier",
          "temperature", "humidity", "pm25", "pm10")
 ROLE_NAMES = dict(zip(ROLES, ("灯具 1", "灯具 2", "灯具 3", "灯具 4", "空调", "净化器",

@@ -15,9 +15,9 @@ jobs:
       - run: python -m pip install -r requirements-build.txt
       - run: python -m unittest discover -s tests -v
       - run: ./tools/build_app.ps1 -Python python
-      - run: python tools/build_release.py --exe 'dist/VK03控制中心.exe'
+      - run: python tools/build_release.py --exe 'dist/VK03ControlCenter/VK03控制中心.exe'
       - uses: actions/upload-artifact@v7
         with:
-          name: VK03-v1.0.0-core
-          path: dist/VK03-v1.0.0-core.zip
+          name: VK03-v1.0.1-core
+          path: dist/VK03-v1.0.1-core.zip
           if-no-files-found: error

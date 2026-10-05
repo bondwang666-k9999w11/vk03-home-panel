@@ -68,11 +68,15 @@ def build(exe, sensor_exe=None):
             shutil.copyfile(ROOT / name, stage / name)
         for subdir in ("docs", "examples", "tools", "tests", "sensors"):
             for src in (ROOT / subdir).rglob("*"):
-                if src.is_file() and src.suffix in (".md", ".json", ".py", ".ps1", ".cs", ".config", ".txt"):
+                if src.is_file() and src.suffix in (".md", ".json", ".py", ".ps1", ".cs", ".config", ".txt", ".png"):
                     target = stage / src.relative_to(ROOT)
                     target.parent.mkdir(parents=True, exist_ok=True)
                     shutil.copyfile(src, target)
         shutil.copyfile(exe, stage / "VK03控制中心.exe")
+        runtime = exe.parent / '_internal'
+        if not runtime.is_dir():
+            raise ValueError('Folder build requires the adjacent _internal directory')
+        shutil.copytree(runtime, stage / '_internal')
         if sensor_exe:
             shutil.copyfile(sensor_exe, stage / "sensors" / "VK03Sensors.exe")
         add_dependency_notices(stage)
