@@ -46,7 +46,7 @@ class IdleTests(unittest.TestCase):
             def snapshot(self): return {}
         with tempfile.TemporaryDirectory() as directory:
             cleaned = []
-            ns.update(os=os, time=clock, PCMonitor=Collector, page="monitor", touch=Touch(),
+            ns.update(os=os, time=clock, print=Mock(), PCMonitor=Collector, page="monitor", touch=Touch(),
                       appearance=Theme(), ha_worker=lambda: None, ha_results=queue.Queue(),
                       APP_DIR=Path(directory), current_frame=b"initial", fid=0,
                       send_frame=lambda *args: None, render_ui=lambda: None, encode_frame=lambda img: b"frame",
