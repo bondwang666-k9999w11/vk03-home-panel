@@ -1,9 +1,18 @@
 """Fail closed on credentials, runtime data, local paths or private device IDs."""
 import argparse
+import hashlib
 from pathlib import Path
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
+# Reviewed, generated demo renders only. Changed/new media still fail closed.
+REVIEWED_MEDIA = {
+    'docs/images/climate.png': 'bf55b8ccf37cf0b700b39201e1f1de485d2818ad4acc936854f3f15ad32d241b',
+    'docs/images/home-dark.png': '7e5080ad5c745756cfd59e60f74fadc1300c031d5d0f9d047029a9497250deb0',
+    'docs/images/home-light.png': '342380695567afeecf7342367d96076fe4df2d3e1aab37de9071fdbba8e20b6c',
+    'docs/images/monitor.png': '5ee226d908f2240e616e4306ba6da95b8ed693b2daaf9b6793eea82fa7a4df96',
+    'docs/images/purifier.png': '1432ceaf21095e021fb2eb8e60dea3a35448c6b8c57f9b26e7432130046694c2',
+}
 OMIT = {".git", ".venv", "venv", "build", "dist", "__pycache__", ".pytest_cache", "vendor"}
 PRIVATE_NAMES = {"vk03_config.json", "vk03_theme.json", "token.txt", ".env",
                  "vk03_cpu_sensor.json", "vk03_pc_sensor.json", "vk03_cpu_setup_status.json",
@@ -28,6 +37,8 @@ def audit(root):
             errors.append(str(relative) + ": runtime/private artifact")
             continue
         if path.suffix.lower() in (".png", ".jpg", ".jpeg", ".gif", ".mp4", ".webm", ".mov"):
+            if REVIEWED_MEDIA.get(relative.as_posix()) == hashlib.sha256(path.read_bytes()).hexdigest():
+                continue
             errors.append(str(relative) + ": media must be reviewed separately")
             continue
         try:

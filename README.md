@@ -4,6 +4,10 @@
 
 **v1.0.0** · Windows · 960 × 360 · MIT（第三方组件各自遵守其许可证）
 
+[下载正式版](https://github.com/bondwang666-k9999w11/vk03-home-panel/releases/latest) · [安装教程](docs/QUICKSTART.md) · [设备匹配](docs/DEVICE-MAPPING.md) · [反馈问题](https://github.com/bondwang666-k9999w11/vk03-home-panel/issues)
+
+![PC 监控主页，左右显示指标，中间留白](docs/images/monitor.png)
+
 默认播放自定义图片、GIF 或视频，叠加 CPU/GPU 温度和占用率、内存仪表、时间日期。触摸任意位置进入家居控制，首次触摸只唤醒页面；30 秒没有触摸后自动返回监控页。家居首页也可以点击右上角“返回主页”。
 
 ## 功能
@@ -17,6 +21,30 @@
 - 无绑定的设备停用，没有能力的操作不显示。首次读取/离线时不使用假状态。
 - HA 断线自动重连；控制请求不自动重试，避免重复触发设备。
 - Token 使用 Windows DPAPI 按当前用户加密，只保存在本机。
+
+## 界面展示
+
+以下图片由程序实际绘图代码生成，设备状态、硬件指标和时间均为演示值。背景为原创纯色/渐变，用户可以自行更换为图片、GIF 或视频。
+
+### 智能家居控制
+
+浅色和深色按钮共用透明度设置：
+
+![智能家居首页：浅色模式](docs/images/home-light.png)
+
+![智能家居首页：深色模式](docs/images/home-dark.png)
+
+### 空调与空气净化器
+
+具体按钮随 HA 实体提供的能力变化，未绑定的设备停用。
+
+![空调控制页](docs/images/climate.png)
+
+![空气净化器控制页](docs/images/purifier.png)
+
+### 日常使用
+
+监控主页 → 触摸任意位置 → 家居控制 → 无触摸 30 秒或点击返回按钮 → 监控主页。关闭设置窗口后程序保留在系统托盘。
 
 ## 开始使用
 
