@@ -20,6 +20,8 @@
 
 ## 开始使用
 
+第一次使用？请先阅读 [新手入门：从下载到第一次触屏控制](docs/QUICKSTART.md)，并从 [Releases](https://github.com/bondwang666-k9999w11/vk03-home-panel/releases/latest) 下载 core 安装包。
+
 1. 按 [安装指南](docs/INSTALL.md) 准备 Python、依赖和已验证的 VK03 USB 驱动。
 2. 把程序放在 **`C:\VK03`**。首次运行 `StartVK03.cmd`（源码版）或 `VK03控制中心.exe`（Release 版）。
 3. 在自动打开的设备匹配向导中填入自己的 HA 地址与长期访问 Token，点击“连接并读取设备”。
@@ -29,6 +31,8 @@
 米家账号、米家设备接入由用户在 Home Assistant 中完成，**面板不登录米家账号，不要求提供米家账号密码**。其他品牌接入 HA 后，符合上述实体类型也可以绑定；不承诺所有设备型号都兼容。
 
 ## 文档
+
+- [新手入门完整流程](docs/QUICKSTART.md)
 
 - [安装、自启动、USB 和排错](docs/INSTALL.md)
 - [米家设备接入与实体匹配教程](docs/DEVICE-MAPPING.md)
