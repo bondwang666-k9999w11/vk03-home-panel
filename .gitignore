@@ -1,0 +1,32 @@
+# Per-user credentials, devices, appearance and telemetry (including encrypted tokens)
+vk03_config.json
+vk03_theme.json
+vk03_*sensor.json
+vk03_*sensor.pending.json
+vk03_cpu_setup_status.json
+vk03_performance*.json
+vk03_exe_test.json
+*.log
+*.log.*
+*.flag
+*.pending.json
+vk03_background*
+assets/
+token.txt
+.env
+.env.*
+# Runtime dependencies and optional vendor downloads are not source artifacts.
+*.exe
+*.dll
+*.pdb
+*.zip
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+build/
+dist/
+*.spec
+vendor/
+.pytest_cache/
+.DS_Store

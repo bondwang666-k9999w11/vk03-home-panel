@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "ha_url": "http://homeassistant.local:8123",
+  "token_dpapi": "",
+  "bindings": {
+    "light_1": {
+      "entity_id": "light.example_light_1",
+      "label": "灯1"
+    },
+    "light_2": {
+      "entity_id": "light.example_light_2",
+      "label": "灯2"
+    },
+    "light_3": {
+      "entity_id": "light.example_light_3",
+      "label": "灯3"
+    },
+    "light_4": {
+      "entity_id": "light.example_light_4",
+      "label": "灯4"
+    },
+    "climate": {
+      "entity_id": "climate.example_climate",
+      "label": "空调"
+    },
+    "purifier": {
+      "entity_id": "fan.example_purifier",
+      "label": "净化器"
+    },
+    "temperature": {
+      "entity_id": "sensor.example_temperature",
+      "label": "环境温度"
+    },
+    "humidity": {
+      "entity_id": "sensor.example_humidity",
+      "label": "相对湿度"
+    },
+    "pm25": {
+      "entity_id": "sensor.example_pm25",
+      "label": "PM2.5"
+    },
+    "pm10": {
+      "entity_id": "sensor.example_pm10",
+      "label": "PM10"
+    }
+  }
+}

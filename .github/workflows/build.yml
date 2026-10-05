@@ -1,0 +1,23 @@
+name: Build core release artifact
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements-build.txt
+      - run: python -m unittest discover -s tests -v
+      - run: ./tools/build_app.ps1 -Python python
+      - run: python tools/build_release.py --exe 'dist/VK03控制中心.exe'
+      - uses: actions/upload-artifact@v7
+        with:
+          name: VK03-v1.0.0-core
+          path: dist/VK03-v1.0.0-core.zip
+          if-no-files-found: error
