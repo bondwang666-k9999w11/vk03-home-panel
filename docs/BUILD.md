@@ -1,35 +1,62 @@
-# 构建与发布包
+# 源码运行与构建
 
-## 控制中心 EXE
+当前分支只维护VK03 Studio，main分支仍是HA面板。发布程序推荐使用Release里的完整win64 ZIP。
 
-推荐 Windows x64、Python 3.12。源码中的固定默认安装目录为 `C:\VK03`。
+## 环境
 
-请在干净的源码 checkout 中构建，运行配置及背景放在安装目录。隐私扫描会拒绝源码目录里的实际个人配置或传感器依赖下载；构建输出 `dist`、`build` 和自行准备的 `vendor` 目录不参与源码上传。
-
-```powershell
-py -3 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements-build.txt
-.\.venv\Scripts\python.exe -m unittest discover -s tests -v
-.\.venv\Scripts\python.exe tools\check_public_tree.py
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File tools\build_app.ps1 -Python .\.venv\Scripts\python.exe
-```
-
-构建脚本把 EXE 和 `_internal` 运行库写入 `dist/VK03ControlCenter`，不会接触 USB、HA 或个人安装目录。设备匹配、配置和监控模块显式包含在 EXE 中，GUI 不产生 CMD 窗口。
-
-面板进程使用外部 Python；EXE 不代表摆脱 Python 依赖。Release 必须保留源码模块和运行说明。
-
-## CPU helper
-
-按 [CPU 组件教程](CPU-SENSORS.md) 准备官方库，可放到源码 checkout 的 `vendor/LHM`，再运行 `tools/build_sensors.ps1 -LibraryDirectory vendor/LHM`。它使用 .NET Framework C# 编译器生成 `dist/sensors/VK03Sensors.exe`，不安装驱动。源码位于 `sensors/VK03Sensors.cs`，库版本为 v0.9.6。
-
-## 制作核心 Release
+Windows 10/11 x64、Python 3.12 x64。构建卸载程序使用Windows自带.NET Framework C#编译器。界面使用动态链接Qt，依赖版本见requirements.txt；许可证见licenses/与THIRD_PARTY_NOTICES.txt。
 
 ```powershell
-.\.venv\Scripts\python.exe tools\build_release.py --exe "dist\VK03ControlCenter\VK03控制中心.exe"
+git clone --branch vk03-studio https://github.com/bondwang666-k9999w11/vk03-home-panel.git
+cd vk03-home-panel
+py -3.12 -m venv .venv
+.venv/Scripts/python.exe -m pip install -r requirements.txt
+.venv/Scripts/python.exe app.py --data-dir ./dev-data
 ```
 
-打包器只使用允许清单，输出 `dist/VK03-v1.0.1-core.zip`。不复制真实配置、主题、日志、个人素材、外部硬件 DLL、驱动安装程序或 FFmpeg；随包包含控制中心依赖的 Python/Tk/Pillow 等运行库。可选 helper 编译完成后可用 `--sensor-exe dist/sensors/VK03Sensors.exe` 加入自有 helper。
+只有用户明确点击连接屏幕后才打开USB。开发时先退出其他控制程序。隔离测试不连接USB，不执行真实媒体/电源动作。
 
-打包器附带源码、文档、MIT 许可、第三方说明和构建环境可取得的依赖许可文件。FFmpeg/LHM/PawnIO 不在核心包中，用户按教程自行准备。如果未来重新打包第三方二进制，需要另行核查该构建的全部许可及相应源码提供义务，不能因为本项目是 MIT 就删除其许可。
+## 测试
 
-GitHub Actions 在 Windows 上运行无硬件测试和隐私检查。构建工作流只在手动触发时生成 EXE/ZIP artifact，不会自动创建公开 Release，也不会安装驱动或向设备发送指令。
+```powershell
+.venv/Scripts/python.exe tests/test_model.py
+.venv/Scripts/python.exe tests/test_ui.py
+.venv/Scripts/python.exe tests/test_video.py
+.venv/Scripts/python.exe tools/check_public_tree.py
+```
+
+Qt测试使用offscreen平台与模拟系统桥接，截图写入artifacts/，不应提交个人画面。tests/probe_system.py为Windows真实只读状态探测，单独运行；不属于无系统依赖的模拟测试。
+
+卸载隔离测试需要先通过构建脚本生成uninstall.exe，再运行：
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File tests/test_uninstall.ps1
+```
+
+它只删除tests目录中自行创建的夹具文件，验证修改文件与额外文件保留、清单越界拒绝和保护目录拒绝；不对实际安装执行卸载。
+
+## 打包
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File build_release.ps1
+```
+
+输出：`dist-0.2.1/VK03Studio/` 与 `releases/standalone-0.2.1/`。完整运行目录必须保留_internal；包内包含uninstall.exe、应用标记、文件哈希清单和第三方许可证。
+
+卸载源码改变或EXE缺失时编译；否则可以复用现有uninstall.exe。每次发布仍会重新生成文件清单、版本标记与SHA256SUMS.txt。
+
+构建规范排除了开发工具的ICU库和系统libusb0.dll，避免误收开发环境文件。运行时使用Windows自带ICU，连接设备时显式加载系统已有的64位libusb0库。Qt自带的FFmpeg解码DLL明确进入运行目录。
+
+## 代码结构
+
+| 文件 | 用途 |
+| --- | --- |
+| app.py | 菜单、属性、编辑操作、设备控制、方案保存 |
+| canvas.py | 场景绘制、监控光晕、内存图形和分层水波 |
+| model.py | 方案结构、校验与样式复用 |
+| device.py | MS912C帧格式、USB/HID连接与触摸解析 |
+| system_bridge.py / bridge/ | Windows媒体、音量与系统动作 |
+| projects.py | 带素材的方案导入导出 |
+| Uninstall.cs | 清单式卸载与文件保留 |
+
+测试与发布只使用自建数据。不要提交运行配置、快捷目标、日志、个人媒体、原厂程序、JSC、.node、驱动安装器、开发环境或完整dist目录。程序ZIP作为Release附件提供。

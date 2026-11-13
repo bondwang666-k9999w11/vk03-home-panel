@@ -1,0 +1,33 @@
+﻿VK03 Studio 0.2.1 - third-party notices
+
+The application source is provided under MIT. Third-party components retain
+ their own licenses; the application's MIT license does not relicense them.
+
+Qt / Qt for Python / PySide6 / Shiboken 6.12.0:
+https://code.qt.io/cgit/pyside/pyside-setup.git/?h=6.12.0
+https://code.qt.io/cgit/qt/qtbase.git/?h=6.12.0
+The open-source LGPLv3 option is used for the dynamically loaded Qt libraries.
+Qt libraries are unmodified and can be replaced in _internal/PySide6 with
+ABI-compatible builds. Reverse engineering of this application for debugging
+modifications to the LGPL-covered libraries is permitted. Included library
+licenses and wheel metadata are in licenses/. Qt multimedia uses the FFmpeg
+libraries shipped with the same unmodified PySide6 wheel (avcodec, avformat,
+avutil, swresample and swscale).
+FFmpeg sources: https://ffmpeg.org/download.html#releases
+Qt multimedia sources: https://code.qt.io/cgit/qt/qtmultimedia.git/?h=6.12.0
+
+PyUSB 1.3.1: https://github.com/pyusb/pyusb (BSD-3-Clause)
+hidapi / cython-hidapi 0.15.0: https://github.com/trezor/cython-hidapi
+  See licenses/hidapi for upstream license choices and notices.
+psutil 7.2.2: https://github.com/giampaolo/psutil (BSD-3-Clause)
+Python 3.12: https://www.python.org/ (PSF License)
+PyInstaller bootloader: https://pyinstaller.org/ (GPL with bootloader exception)
+
+Windows APIs and the existing USB kernel driver belong to their respective
+providers. No MythCool application, vendor JSC, native .node addon, USB driver
+installer, vendor skins, user configuration or media is included.
+
+The existing system libusb0 library is loaded only when the user explicitly
+connects a device. It is not copied into this distribution.
+
+Pillow 13.0.0: https://python-pillow.github.io/ (HPND and bundled library notices in licenses/Pillow). Used for cached optional text glow.
